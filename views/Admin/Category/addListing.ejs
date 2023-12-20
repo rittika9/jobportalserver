@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../Common/head.ejs')%>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <%- include('../Common/navbar.ejs')%>
+
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <%- include('../Common/sidebar.ejs')%>
+
+  <!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Add Blog Data</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/blog/listing">Home</a></li>
+          <li class="breadcrumb-item">Blog</li>
+          <li class="breadcrumb-item active">Add</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-6">
+
+          <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">Add Data</h5>
+
+              <!-- Horizontal Form -->
+              <form action="/category/createListing" method="post" enctype="multipart/form-data">
+                <div class="row mb-3">
+                  <div class="col-sm-9">
+                    <!-- <input type="hidden" class="form-control" id="inputText" name="user" value="adminData._id"> -->
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputText" name="title">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-3 col-form-label">SubTitle</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputText" name="subtitle">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-3 col-form-label">Content</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputText" name="content">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-3 col-form-label">Image</label>
+                  <div class="col-sm-9">
+                    <input type="file" class="form-control" style="color:red;" id="inputText" name="image" accept="image/png, image/jpeg,image/jpg" >
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+              </form><!-- End Horizontal Form -->
+
+            </div>
+          </div>
+
+          
+
+        </div>
+
+       
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <%- include('../Common/footer.ejs')%>

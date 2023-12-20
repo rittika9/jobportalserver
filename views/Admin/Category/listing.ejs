@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../Common/head.ejs')%>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <%- include('../Common/navbar.ejs')%>
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <%- include('../Common/sidebar.ejs')%>
+  <!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Category</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active"><a href="/admin/dashboard">Dashboard</a> / Category</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- <section class="section dashboard">
+      <div class="row">
+        <div class="col-lg-12">
+            fhddfhfghgfhdgftretdfgfhf
+
+        </div>
+          </div>
+        </div>
+       ****** End Left side columns
+
+      </div>
+    </section> -->
+
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Datatables</h5>
+              <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
+              <a href="/category/addListing" class="btn btn-success">Add </a>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">SubTitle</th>
+                    <th scope="col">Content</th>
+                    <!-- <th scope="col">Author</th> -->
+                    <th scope="col">Image</th>
+                    <th scope="col">Status</th>
+                    <th colspan="2">Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <% 
+                  let count=0
+                  for(let element of data){
+                     %>
+
+                  <tr>
+
+                    <th scope="row"> <%= count+=1 %></th>
+                    <td><%= element.title %></td>
+                    <td><%= element.subtitle.slice(0,100) %></td>
+                    <td><%= element.content.slice(0,100) %></td>
+                    <!-- <td> element.user.name </td> -->
+                   
+                    <td><img src="/<%=element.image %>" height="50px" width="50px" alt="bannerData"></td>
+
+                    <!-- <td>
+                      <% if(element.status==='0') {%> <a href="/banner/activate/<%=element._id %>" class="btn btn-info">activate</a><%}%>
+                      <% if(element.status==='1') {%> <a href="/banner/deactivate/<%=element._id %>" class="btn btn-danger">deactivate</a><%}%>
+  
+                      </td> -->
+                      <td>
+                        <% if(element.status==='1') {%> <a href="/category/activate/<%=element._id %>" ><i class="bi bi-hand-thumbs-up"style='color: blue;font-size: 30px;'></i></a><%}%>
+                        <% if(element.status==='0') {%> <a href="/category/deactivate/<%=element._id %>"> <i class="bi bi-hand-thumbs-down"style='color: red;  font-size: 30px;'></i></a><%}%>
+    
+                        </td>
+
+                    <td><a href="/category/editListing/<%=element._id %>" class="btn btn-info">Update</a></td>
+                    <td><a href="/category/deleteListing/<%=element._id %>" class="btn btn-danger">Delete</a></td>
+                  </tr>
+                  <%}%>
+
+                  
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+  </main><!-- End #main -->
+<div style="margin-top: 300px;">
+</div>
+
+  <!-- ======= Footer ======= -->
+  <%- include('../Common/footer.ejs')%>
