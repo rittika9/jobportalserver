@@ -1,12 +1,10 @@
 
+const jobModel=require("../../../Model/jobModel")
 
-
-const jobModel = require('../../../Model/jobModel');
-const bookingMojobModeldel = require('../../../Model/jobModel')
 
 
 // const listing=async(req,res)=>{
-//     const jobpost=await jobModel.find().populate("user").populate("travel");
+//     const jobpost=await jobModel.find().populate("user");
 //     res.render("Admin/jobpost/listing",{
 //         jobposts:jobpost,
 //       adminData:req.admin
@@ -18,6 +16,7 @@ const bookingMojobModeldel = require('../../../Model/jobModel')
 const listing=async(req,res)=>{
     const jobpost=await jobModel.find().populate("category").populate("user");
     res.render("Admin/jobpost/listing",{
+      // res.redirect("/jobpost/listing",{
         jobposts:jobpost,
       adminData:req.admin
     })
@@ -25,20 +24,6 @@ const listing=async(req,res)=>{
 
 
 
-// const listing=async(req,res)=>{
-    
-//   try{
-//       const booking=await bookingModel.find().populate("user").populate("travel");
-//       res.render("Admin/Booking/listing",{
-//         bookings:booking
-//       })
-//       console.log(result);
-//   }
-//   catch(err){
-//       console.log(err);
-//   }
-
-// }
 
 
 

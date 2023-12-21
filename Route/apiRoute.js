@@ -19,8 +19,6 @@ const image=require('../Utility/Image')
 // Auth
 //**registration */
 Route.post("/registeruser",image.single('image'),AuthController.regcreate);
-// Route.post("/registeruser",AuthController.regcreate);
-
 Route.get("/confirmation/:email/:token",AuthController.confirmation);
 // login
 Route.post("/loginuser",image.single('image'),AuthController.loginuser);
@@ -46,9 +44,8 @@ Route.get('/like/:id',CategoryController.likes)
 
 Route.get("/jobpost",apiemployerverify,jobController.allJobPost )
 Route.post("/jobpost/create",image.single('image'),jobController.createJobPost )
-// Route.post("/jobpost/create",jobController.createJobPost )
-Route.get("/jobpost/:id",jobController.showSingleJobPost )
-Route.post("/jobpost/update/:id",jobController.updateJobPost )
+// Route.get("/jobpost/:id",jobController.showSingleJobPost )
+// Route.post("/jobpost/update/:id",jobController.updateJobPost )
 Route.delete("/jobpost/delete/:id",jobController.deleteJobPost)
 
 // job find
@@ -60,6 +57,8 @@ Route.get("/jobfinddetails/:id",jobController.JobFindDetails )
 // job find by type 
 Route.get("/jobfindby-fulltime",jobController.fulltimeJobFind)
 Route.get("/jobfindby-parttime",jobController.parttimeJobFind)
+Route.get("/jobfindby-intern",jobController.internJobFind)
+
 
 
 // job Apply

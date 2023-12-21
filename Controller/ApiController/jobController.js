@@ -135,65 +135,65 @@ const createJobPost=async(req,res)=>{
 
 
 
-const showSingleJobPost=async(req,res)=>{
+// const showSingleJobPost=async(req,res)=>{
     
 
-    try{
-        const id = req.params.id;
-       const jobData= await jobModel.findById(id)
-       if(!jobData){
-        return res.status(404).json({
-            success:false,
-            message: "Not found Student with id ",
-           })
-       }else{
-        return res.status(200).json({
-            success:true,
-            message:"Data Fetched Successfully",
-            data:jobData
-           })
-       }
+//     try{
+//         const id = req.params.id;
+//        const jobData= await jobModel.findById(id)
+//        if(!jobData){
+//         return res.status(404).json({
+//             success:false,
+//             message: "Not found Student with id ",
+//            })
+//        }else{
+//         return res.status(200).json({
+//             success:true,
+//             message:"Data Fetched Successfully",
+//             data:jobData
+//            })
+//        }
        
-    }catch(error){
-        return res.status(404).json({
-            success:false,
-            message:"Data Not Found"
-        })
-    }
-}
+//     }catch(error){
+//         return res.status(404).json({
+//             success:false,
+//             message:"Data Not Found"
+//         })
+//     }
+// }
 
 
 
-const updateJobPost=async(req,res)=>{
-    try{
-        if (!req.body) {
-            return res.status(400).json({
-              message: "Data to update can not be empty!"
-            });
-          }
-          const id = req.params.id;
-         const result=await jobModel.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-         if(!result){
-            res.status(404).json({
-                message: `Cannot update data with id=${id}. Maybe data was not found!`
-              });
-         }else{
-            return res.status(200).json({
-                success:true,
-                message:"Data update Successfully",
-               })
+// const updateJobPost=async(req,res)=>{
+//     try{
+//         if (!req.body) {
+//             return res.status(400).json({
+//               message: "Data to update can not be empty!"
+//             });
+//           }
+//           const id = req.params.id;
+//          const result=await jobModel.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+//          if(!result){
+//             res.status(404).json({
+//                 message: `Cannot update data with id=${id}. Maybe data was not found!`
+//               });
+//          }else{
+//             return res.status(200).json({
+//                 success:true,
+//                 message:"Data update Successfully",
+//                })
 
-         }
+//          }
 
-    }catch(err){
-        return res.status(404).json({
-            success:false,
-            error:err.message
-        })
+//     }catch(err){
+//         return res.status(404).json({
+//             success:false,
+//             error:err.message
+//         })
 
-    }
+//     }
 
-}
+// }
 
 
 
@@ -295,7 +295,11 @@ const fulltimeJobFind = async (req, res) => {
 const parttimeJobFind = async (req, res) => {
     try {
         
-        const job = await jobModel.aggregate([{ $match: { type: 'parttime' } }]);
+        const job = await jobModel.aggregate([
+            { $match: { type: 'parttime' }},
+        { $lookup: { from: "categories", localField: "category", foreignField: "_id", as: "category" }}
+
+     ]);
 
         console.log('parttime jobs fetched successfully:', job);
 
@@ -309,6 +313,48 @@ const parttimeJobFind = async (req, res) => {
         return res.status(404).json({ success: false, message: "Error fetching data", error: error.message });
     }
 }
+
+
+// const internJobFind = async (req, res) => {
+//     try {
+        
+//         const job = await jobModel.aggregate([{ $match: { type: 'intern' } }]);
+//         console.log('intern jobs fetched successfully:', job);
+
+//         return res.status(200).json({
+//             success: true,
+//             message: "intern data fetch successfully",
+//             data: job
+//         });
+//     } catch (error) {
+//         console.error('Error fetching intern jobs:', error);
+//         return res.status(404).json({ success: false, message: "Error fetching data", error: error.message });
+//     }
+// }
+
+const internJobFind = async (req, res) => {
+    try {
+        const job = await jobModel.aggregate([
+            { $match: { type: 'intern' }},
+            { $lookup: { from: "categories", localField: "category", foreignField: "_id", as: "category" }}
+        ]);
+
+        console.log('Intern jobs fetched successfully:', job);
+
+        return res.status(200).json({
+            success: true,
+            message: "Intern data fetch successfully",
+            data: job
+        });
+    } catch (error) {
+        console.error('Error fetching intern jobs:', error);
+        return res.status(404).json({ success: false, message: "Error fetching data", error: error.message });
+    }
+};
+
+
+
+
 
 
 
@@ -333,10 +379,12 @@ const applyJobForm=async(req,res)=>{
 
 
 module.exports={
-    allJobPost,createJobPost,showSingleJobPost,updateJobPost,deleteJobPost,
+    allJobPost,createJobPost,
+    deleteJobPost,
     JobFind,
     JobFindDetails,
     fulltimeJobFind,
     parttimeJobFind,
+    internJobFind,
     applyJobForm,
 }
