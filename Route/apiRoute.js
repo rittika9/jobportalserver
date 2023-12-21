@@ -26,6 +26,8 @@ Route.post("/loginemployer",image.single('image'),AuthController.loginemployer);
 // dashboard
 Route.get('/userdashboard/:id', AuthController.user_Dashboard)
 Route.get('/employerdashboard/:id',apiemployerverify, AuthController.employer_Dashboard)
+Route.delete("/employerpost/delete/:id",AuthController.deleteJobPost)
+
 
 
 
@@ -46,7 +48,7 @@ Route.get("/jobpost",apiemployerverify,jobController.allJobPost )
 Route.post("/jobpost/create",image.single('image'),jobController.createJobPost )
 // Route.get("/jobpost/:id",jobController.showSingleJobPost )
 // Route.post("/jobpost/update/:id",jobController.updateJobPost )
-Route.delete("/jobpost/delete/:id",jobController.deleteJobPost)
+// Route.delete("/jobpost/delete/:id",jobController.deleteJobPost)
 
 // job find
 

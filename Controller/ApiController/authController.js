@@ -330,6 +330,23 @@ const user_Dashboard=async (req, res) => {
                         return res.status(404).json({success: false , message:"error"})
                     }
                 }
+
+
+
+                const deleteJobPost=(req,res)=>{
+
+                    const id=req.params.id
+                    jobModel.deleteOne({_id:id}).then(del=>{
+                        return res.status(200).json({
+                                        status:true,
+                                        message: "Job was deleted successfully!"
+                                      })
+                
+                
+                    }).catch((err)=>{
+                        console.log(err,"delete failed")
+                    })
+                  }
         
 
 module.exports={
@@ -339,6 +356,7 @@ module.exports={
     loginemployer,
     user_Dashboard,
     employer_Dashboard,
+    deleteJobPost,
 
 }
 

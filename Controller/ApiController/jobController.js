@@ -219,20 +219,20 @@ const createJobPost=async(req,res)=>{
 
 
 
-const deleteJobPost=(req,res)=>{
+// const deleteJobPost=(req,res)=>{
 
-    const id=req.params.id
-    jobModel.deleteOne({_id:id}).then(del=>{
-        return res.status(200).json({
-                        status:true,
-                        message: "Job was deleted successfully!"
-                      })
+//     const id=req.params.id
+//     jobModel.deleteOne({_id:id}).then(del=>{
+//         return res.status(200).json({
+//                         status:true,
+//                         message: "Job was deleted successfully!"
+//                       })
 
 
-    }).catch((err)=>{
-        console.log(err,"delete failed")
-    })
-  }
+//     }).catch((err)=>{
+//         console.log(err,"delete failed")
+//     })
+//   }
 
 
 const JobFind=async(req,res)=>{
@@ -276,7 +276,7 @@ const JobFindDetails=async(req,res)=>{
 const fulltimeJobFind = async (req, res) => {
     try {
         
-        const job = await jobModel.aggregate([{ $match: { type: 'fulltime' } },
+        const job = await jobModel.aggregate([{ $match: { type: 'fulltime',isPending: false } },
         { $lookup: { from: "categories", localField: "category", foreignField: "_id", as: "category" }}
     ]);
 
@@ -298,7 +298,7 @@ const parttimeJobFind = async (req, res) => {
     try {
         
         const job = await jobModel.aggregate([
-            { $match: { type: 'parttime' }},
+            { $match: { type: 'parttime',isPending: false }},
         { $lookup: { from: "categories", localField: "category", foreignField: "_id", as: "category" }}
 
      ]);
@@ -316,23 +316,6 @@ const parttimeJobFind = async (req, res) => {
     }
 }
 
-
-// const internJobFind = async (req, res) => {
-//     try {
-        
-//         const job = await jobModel.aggregate([{ $match: { type: 'intern' } }]);
-//         console.log('intern jobs fetched successfully:', job);
-
-//         return res.status(200).json({
-//             success: true,
-//             message: "intern data fetch successfully",
-//             data: job
-//         });
-//     } catch (error) {
-//         console.error('Error fetching intern jobs:', error);
-//         return res.status(404).json({ success: false, message: "Error fetching data", error: error.message });
-//     }
-// }
 
 const internJobFind = async (req, res) => {
     try {
@@ -381,8 +364,8 @@ const applyJobForm=async(req,res)=>{
 
 
 module.exports={
-    allJobPost,createJobPost,
-    deleteJobPost,
+    allJobPost,
+    createJobPost,
     JobFind,
     JobFindDetails,
     fulltimeJobFind,
