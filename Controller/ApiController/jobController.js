@@ -276,7 +276,9 @@ const JobFindDetails=async(req,res)=>{
 const fulltimeJobFind = async (req, res) => {
     try {
         
-        const job = await jobModel.aggregate([{ $match: { type: 'fulltime' } }]);
+        const job = await jobModel.aggregate([{ $match: { type: 'fulltime' } },
+        { $lookup: { from: "categories", localField: "category", foreignField: "_id", as: "category" }}
+    ]);
 
 
         console.log('Fulltime jobs fetched successfully:', job);
@@ -335,7 +337,7 @@ const parttimeJobFind = async (req, res) => {
 const internJobFind = async (req, res) => {
     try {
         const job = await jobModel.aggregate([
-            { $match: { type: 'intern' }},
+            { $match: { type: 'intern',isPending: false }},
             { $lookup: { from: "categories", localField: "category", foreignField: "_id", as: "category" }}
         ]);
 
