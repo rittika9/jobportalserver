@@ -187,7 +187,7 @@ const loginuser=async(req,res)=>{
                            console.log(data);
                            return res.status(200).json({
                                success:true,
-                               message:"Login successfully!",
+                               message:"Candidate Login successfully!",
                                data,
                                token
                            })
@@ -251,6 +251,7 @@ const loginemployer=async(req,res)=>{
                            console.log(data);
                            return res.status(200).json({
                                success:true,
+                               message:"Employer Login successfully!",
                                data,
                                token
                            })
