@@ -74,7 +74,8 @@ const regcreate=async(req,res)=>{
                     from: 'no-reply@rittika.com',
                     to: user.email,
                     subject: 'Account Verification',
-                    text: 'Hello ' + req.body.name + ',\n\n' + 'Please verify your account by clicking the link:'+`http://localhost:${process.env.PORT}/api/confirmation/${user.email}/${token.token}` 
+                    // text: 'Hello ' + req.body.name + ',\n\n' + 'Please verify your account by clicking the link:'+`http://localhost:${process.env.PORT}/api/confirmation/${user.email}/${token.token}` 
+                    text: 'Hello ' + req.body.name + ',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + user.email + '\/' + token.token + '\n\nThank You!\n'
                 }
                 transPorter.sendMail(mailOptions);
                 return res.status(200).json({
